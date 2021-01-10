@@ -198,11 +198,7 @@ app.get('/leave', function (req, res) {
 
 app.post('/leave', function (req, res) {});
 
-let port = process.env.PORT;
-if (port == null || port == '') {
-    port = 3000;
-}
-
+port = 3000 || process.env.PORT;
 app.listen(port, function () {
-    console.log('Server has started');
+    console.log('Server has started on PORT : ' + port);
 });
