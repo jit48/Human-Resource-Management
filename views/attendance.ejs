@@ -1,0 +1,20 @@
+<html lang="em">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>HR-Attendance</title>
+    </head>
+    <body>
+        <h1>HI THIS IS ATTENDANCE PAGE</h1>
+        <p>
+            <script> document.write(new Date().toLocaleDateString()); </script>
+        </p>
+        <form action="/attendance" method="POST">
+            <input type="checkbox" name="present" id="presentcheck" value="yes">
+            <label for="present">Present</label>
+            <input type="checkbox" name="absent" id="absentcheck" value="no">
+            <label for="absent">Absent</label>
+            <button type="submit" name="submit">Submit</button>
+        </form> 
+    </body>
+</html>
