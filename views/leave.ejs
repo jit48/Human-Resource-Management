@@ -1,0 +1,18 @@
+<html>
+    <head>
+    </head>
+    <body>
+        <h1>Leave Requests Remaining</h1>
+        <form action="/leave" method="POST">
+        <% employeewithleave.forEach(function(employee){ %>
+            <p><%=employee.name%></p>
+            <p><%=employee.leavefrom%></p>
+            <p><%=employee.leaveto%></p>
+            <p><%=employee.lcount%></p>
+            <input type="text" name="message" placeholder="Write message">
+            <button type="submit" onclick="gotClicked()">Approve</button>
+            <button type="submit" onclick="gotClicked1()">Reject</button>
+        <% }) %>
+    </form>
+    </body>
+</html

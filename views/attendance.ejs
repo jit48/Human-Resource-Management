@@ -5,16 +5,29 @@
         <title>HR-Attendance</title>
     </head>
     <body>
-        <h1>HI THIS IS ATTENDANCE PAGE</h1>
+        <h1>Apply for Leave</h1>
+        <h3>Today is</h3>
         <p>
             <script> document.write(new Date().toLocaleDateString()); </script>
         </p>
         <form action="/attendance" method="POST">
-            <input type="checkbox" name="present" id="presentcheck" value="yes">
-            <label for="present">Present</label>
-            <input type="checkbox" name="absent" id="absentcheck" value="no">
-            <label for="absent">Absent</label>
-            <button type="submit" name="submit">Submit</button>
+            <label for="from">Date of start of leave</label>
+            <input name="from" placeholder="dd/mm/yyyy">
+            <br>
+            <br>
+            <br>
+            <label for="from">Date of end of leave</label>
+            <input name="to" placeholder="dd/mm/yyyy">
+            <br>
+            <br>
+            <br>
+            <label for="from">Number of days for leave</label>
+            <input name="count" placeholder="Count of leave">
+            <br>
+            <br>
+            <br>
+            <button type="submit" name="submit">Apply</button>
+            
         </form> 
     </body>
 </html>

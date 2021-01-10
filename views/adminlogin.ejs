@@ -5,11 +5,10 @@
         <title>HR-Attendance</title>
     </head>
     <body>
-        <form>
-            <input id="username" placeholder="Username">
-            <input id="employeeId" placeholder="Admin ID">
-            <button type="button" onclick="getinfo()">Submit</button>
+        <form action="/adminlogin" method="POST">
+            <input  name="username" placeholder="Username">
+            <input  name="password" placeholder="Admin ID">
+            <button type="submit" name="submit">Submit</button>
         </form>
-        <script src="js/emplogin.js"></script>
     </body>
 </html>
