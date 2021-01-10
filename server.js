@@ -22,7 +22,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 
-mongoose.connect("mongodb+srv://jit-admin:jithello28@cluster1.kfo01.mongodb.net/employeeDB?retryWrites=true&w=majority", {useNewUrlParser: true, useUnifiedTopology: true});
+
 
 
 
