@@ -255,7 +255,7 @@ app.get('/leave', function (req, res) {
     }
 });
 
-app.post('/leave', function (req, res) {});
+//app.post('/leave', function (req, res) {});
 
 /*==========================================*/
 
