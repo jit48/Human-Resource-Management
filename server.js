@@ -25,7 +25,7 @@ app.use(passport.session());
 
 
 mongoose.connect(
-    `mongodb+srv://${process.env.ADMIN}:${process.env.PASSWORD}@cluster1.kfo01.mongodb.net/employeeDB?retryWrites=true&w=majority`,
+    "mongodb+srv://${process.env.ADMIN}:${process.env.PASSWORD}@cluster1.kfo01.mongodb.net/employeeDB?retryWrites=true&w=majority",
     { useNewUrlParser: true, useUnifiedTopology: true }
 );
 
