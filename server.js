@@ -94,7 +94,7 @@ app.get('/adminlogin', function (req, res) {
 app.post('/adminlogin', function (req, res) {
     const employee = new Employee({
         username: req.body.username,
-        employeeId: req.body.password,
+        employeeId: req.body.password
     });
 
     req.login(employee, function (err) {
@@ -227,16 +227,6 @@ app.post('/attendance', function (req, res) {
 });
 
 /*==========================================*/
-
-
-app.get('/home', function (req, res) {
-    if (req.isAuthenticated()) {
-        res.render('index');
-    } else {
-        res.redirect('/');
-    }
-});
-
 
 /*----------------------------------------------*/
 /*                LEAVE ROUTE                   */
