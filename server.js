@@ -262,7 +262,7 @@ app.get("/account", function(req, res){
 /*==========================================*/
 
 
-port = 3000 || process.env.PORT;
+var port = 3000 || process.env.PORT;
 app.listen(port, function () {
     console.log('Server has started on PORT : ' + port);
 });
