@@ -238,7 +238,6 @@ app.get('/leave', function (req, res) {
                 console.log(err);
             } else {
                 if (foundEmployees) {
-                    console.log(foundEmployees);
                     res.render('leave', { employeewithleave: foundEmployees });
                 }
             }
