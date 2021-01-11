@@ -24,7 +24,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 mongoose.connect(
-    `mongodb+srv://${process.env.ADMIN}:${process.env.PASSWORD}@cluster1.kfo01.mongodb.net/employeeDB?retryWrites=true&w=majority`,
+    "mongodb+srv://${process.env.ADMIN}:${process.env.PASSWORD}@cluster1.kfo01.mongodb.net/employeeDB?retryWrites=true&w=majority",
     { useNewUrlParser: true, useUnifiedTopology: true }
 );
 
@@ -297,7 +297,9 @@ app.get('/account', function (req, res) {
 });
 /*==========================================*/
 
-port = 3000 || process.env.PORT;
+
+
+var port = 3000 || process.env.PORT;
 app.listen(port, function () {
     console.log('Server has started on PORT : ' + port);
 });
