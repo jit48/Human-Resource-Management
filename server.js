@@ -137,8 +137,15 @@ app.get('/register', function (req, res) {
     }
 });
 
+
+
 app.post('/register', function (req, res) {
-    Employee.register({ username: req.body.username, name: req.body.name }, req.body.password, function (err, employee) {
+    Employee.register({ username: req.body.username, 
+        name: req.body.name, 
+        designation: req.body.designation,
+        team: req.body.team,
+        salary: req.body.salary,
+        pnumber: req.body.phnum }, req.body.password, function (err, employee) {
         if (err) {
             res.redirect('/register');
         } else {
@@ -201,6 +208,22 @@ app.get('/leave', function (req, res) {
 });
 
 app.post('/leave', function (req, res) {});
+
+app.post("/admin", function(req, res){
+    var teamValue = req.body.teamSearch;
+    var desigValue = req.body.desigSearch;
+    Employee.find({team: teamValue}, function(err, foundEmployees){
+        if(err){
+            console.log(err);
+        }
+        else{
+            if(foundEmployees){
+                res.render("search", { searchedEmployees: foundEmployees });
+            }
+        }
+    });
+});
+
 
 port = 3000 || process.env.PORT;
 app.listen(port, function () {
