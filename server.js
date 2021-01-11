@@ -58,8 +58,9 @@ app.get('/', function (req, res) {
     res.render('login');
 });
 
-/*      EMPLOYEE LOGIN AND REGISTER     */
-
+/*----------------------------------------------*/
+/*             EMPLOYEE LOGIN                   */
+/*----------------------------------------------*/
 app.get('/empllogin', function (req, res) {
     res.render('empllogin');
 });
@@ -80,10 +81,11 @@ app.post('/empllogin', function (req, res) {
         }
     });
 });
-
 /*==========================================*/
 
-/*      ADMIN LOGIN     */
+/*----------------------------------------------*/
+/*                ADMIN LOGIN                   */
+/*----------------------------------------------*/
 
 app.get('/adminlogin', function (req, res) {
     res.render('adminlogin');
@@ -105,7 +107,11 @@ app.post('/adminlogin', function (req, res) {
         }
     });
 });
+/*==========================================*/
 
+/*----------------------------------------------*/
+/*                ADMIN ROUTE                   */
+/*----------------------------------------------*/
 app.get('/admin', function (req, res) {
     if (req.isAuthenticated()) {
         res.render('admin');
@@ -114,20 +120,52 @@ app.get('/admin', function (req, res) {
     }
 });
 
+app.post("/admin", function(req, res){
+    var teamValue = req.body.teamSearch;
+    var desigValue = req.body.desigSearch;
+    Employee.find({team: teamValue}, function(err, foundEmployees){
+        if(err){
+            console.log(err);
+        }
+        else{
+            if(foundEmployees){
+                res.render("search", { searchedEmployees: foundEmployees });
+            }
+        }
+    });
+});
+
 /*==========================================*/
 
+/*----------------------------------------------*/
+/*                  LOGOUT                      */
+/*----------------------------------------------*/
 app.get('/logout', function (req, res) {
     req.logout();
     res.redirect('/');
 });
 
+/*==========================================*/
+
+
+/*----------------------------------------------*/
+/*                 HOME ROUTE                   */
+/*----------------------------------------------*/
 app.get('/index', function (req, res) {
     if (req.isAuthenticated()) {
-        res.render('index');
+        var employee = req.user;
+        res.render('index', {empDetail: employee});
     } else {
         res.redirect('/');
     }
 });
+
+/*==========================================*/
+
+
+/*----------------------------------------------*/
+/*             REGISTER ROUTE                   */
+/*----------------------------------------------*/
 
 app.get('/register', function (req, res) {
     if (req.isAuthenticated()) {
@@ -136,8 +174,6 @@ app.get('/register', function (req, res) {
         res.redirect('/');
     }
 });
-
-
 
 app.post('/register', function (req, res) {
     Employee.register({ username: req.body.username, 
@@ -156,7 +192,11 @@ app.post('/register', function (req, res) {
         }
     });
 });
+/*==========================================*/
 
+/*----------------------------------------------*/
+/*             ATTENDANCE ROUTE                 */
+/*----------------------------------------------*/
 app.get('/attendance', function (req, res) {
     if (req.isAuthenticated()) {
         res.render('attendance', { leavecount: 0 });
@@ -186,6 +226,9 @@ app.post('/attendance', function (req, res) {
     });
 });
 
+/*==========================================*/
+
+
 app.get('/home', function (req, res) {
     if (req.isAuthenticated()) {
         res.render('index');
@@ -194,6 +237,10 @@ app.get('/home', function (req, res) {
     }
 });
 
+
+/*----------------------------------------------*/
+/*                LEAVE ROUTE                   */
+/*----------------------------------------------*/
 app.get('/leave', function (req, res) {
     if (req.isAuthenticated()) {
         Employee.find({ lcount: { $ne: null } }, function (err, foundEmployees) {
@@ -210,23 +257,23 @@ app.get('/leave', function (req, res) {
 
 app.post('/leave', function (req, res) {});
 
-app.post("/admin", function(req, res){
-    var teamValue = req.body.teamSearch;
-    var desigValue = req.body.desigSearch;
-    Employee.find({team: teamValue}, function(err, foundEmployees){
-        if(err){
-            console.log(err);
-        }
-        else{
-            if(foundEmployees){
-                res.render("search", { searchedEmployees: foundEmployees });
-            }
-        }
-    });
+/*==========================================*/
+
+/*----------------------------------------------*/
+/*              ACCOUNT ROUTE                   */
+/*----------------------------------------------*/
+app.get("/account", function(req, res){
+    var employee = req.user;
+    if(employee){
+        res.render("account", {empDetail: employee});
+    }
+    
 });
+/*==========================================*/
 
 
 port = 3000 || process.env.PORT;
 app.listen(port, function () {
     console.log('Server has started on PORT : ' + port);
 });
+
