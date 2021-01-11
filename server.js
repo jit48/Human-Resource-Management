@@ -147,6 +147,7 @@ app.post('/register', function (req, res) {
         salary: req.body.salary,
         pnumber: req.body.phnum }, req.body.password, function (err, employee) {
         if (err) {
+            console.log(err);
             res.redirect('/register');
         } else {
             passport.authenticate('local')(req, res, function () {
