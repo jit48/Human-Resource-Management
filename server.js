@@ -151,26 +151,27 @@ app.post('/register', function (req, res) {
 
 app.get('/attendance', function (req, res) {
     if (req.isAuthenticated()) {
-        res.render('attendance');
+        res.render('attendance', { leavecount: 0 });
     } else {
         res.redirect('/');
     }
 });
 
 app.post('/attendance', function (req, res) {
-    var from = req.body.from;
-    var to = req.body.to;
-    var count = req.body.count;
+    var from = new Date(req.body.from);
+    var to = new Date(req.body.to);
+    var count = Math.ceil(Math.abs(to.getTime() - from.getTime()) / (1000 * 60 * 60 * 24)) + 1;
+
     Employee.findById(req.user.id, function (err, foundEmployee) {
         if (err) {
             console.log(err);
         } else {
             if (foundEmployee) {
-                foundEmployee.leavefrom = from;
-                foundEmployee.leaveto = to;
+                foundEmployee.leavefrom = req.body.from;
+                foundEmployee.leaveto = req.body.to;
                 foundEmployee.lcount = count;
                 foundEmployee.save(function () {
-                    res.redirect('/attendance');
+                    res.render('attendance', { leavecount: count });
                 });
             }
         }
@@ -201,11 +202,7 @@ app.get('/leave', function (req, res) {
 
 app.post('/leave', function (req, res) {});
 
-let port = process.env.PORT;
-if (port == null || port == '') {
-    port = 3000;
-}
-
+port = 3000 || process.env.PORT;
 app.listen(port, function () {
-    console.log('Server has started');
+    console.log('Server has started on PORT : ' + port);
 });

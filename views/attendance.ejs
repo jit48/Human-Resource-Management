@@ -1,33 +1,44 @@
 <html lang="em">
     <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>HR-Attendance</title>
     </head>
     <body>
         <h1>Apply for Leave</h1>
         <h3>Today is</h3>
         <p>
-            <script> document.write(new Date().toLocaleDateString()); </script>
+            <script>
+                document.write(new Date().toLocaleDateString());
+            </script>
         </p>
         <form action="/attendance" method="POST">
             <label for="from">Date of start of leave</label>
-            <input name="from" placeholder="dd/mm/yyyy">
-            <br>
-            <br>
-            <br>
+            <input type="date" name="from" id="from" />
+            <br />
+            <br />
+            <br />
             <label for="from">Date of end of leave</label>
-            <input name="to" placeholder="dd/mm/yyyy">
-            <br>
-            <br>
-            <br>
+            <input type="date" name="to" id="to" />
+            <br />
+            <br />
+            <br />
             <label for="from">Number of days for leave</label>
-            <input name="count" placeholder="Count of leave">
-            <br>
-            <br>
-            <br>
-            <button type="submit" name="submit">Apply</button>
-            
-        </form> 
+            <% if(leavecount) { %>
+            <p><%=leavecount%></p>
+            <% } %>
+            <br />
+            <br />
+            <br />
+            <button type="submit" name="submit" id="submit_btn">Apply</button>
+        </form>
+        <script>
+            var count = '<%-leavecount%>';
+            if (count != 0) {
+                document.getElementById('submit_btn').disabled = true;
+            } else {
+                document.getElementById('submit_btn').disabled = false;
+            }
+        </script>
     </body>
 </html>
