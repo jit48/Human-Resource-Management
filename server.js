@@ -199,7 +199,8 @@ app.post('/register', function (req, res) {
 /*----------------------------------------------*/
 app.get('/attendance', function (req, res) {
     if (req.isAuthenticated()) {
-        res.render('attendance', { leavecount: 0 });
+        var employee = req.user;
+        res.render('attendance', { employee: employee });
     } else {
         res.redirect('/');
     }
@@ -209,7 +210,6 @@ app.post('/attendance', function (req, res) {
     var from = new Date(req.body.from);
     var to = new Date(req.body.to);
     var count = Math.ceil(Math.abs(to.getTime() - from.getTime()) / (1000 * 60 * 60 * 24)) + 1;
-
     Employee.findById(req.user.id, function (err, foundEmployee) {
         if (err) {
             console.log(err);
@@ -218,8 +218,9 @@ app.post('/attendance', function (req, res) {
                 foundEmployee.leavefrom = req.body.from;
                 foundEmployee.leaveto = req.body.to;
                 foundEmployee.lcount = count;
+                foundEmployee.leavestatus = 'not alotted';
                 foundEmployee.save(function () {
-                    res.render('attendance', { leavecount: count });
+                    res.redirect('/attendance');
                 });
             }
         }
@@ -232,8 +233,24 @@ app.post('/attendance', function (req, res) {
 /*                LEAVE ROUTE                   */
 /*----------------------------------------------*/
 app.get('/leave', function (req, res) {
+    const today = new Date().toISOString().slice(0, 10);
     if (req.isAuthenticated()) {
-        Employee.find({ lcount: { $ne: null }, leavestatus: { $eq: null } }, function (err, foundEmployees) {
+        Employee.find({ leaveto: { $lte: today } }, function (err, foundEmployees) {
+            if (err) {
+                console.log(err);
+            } else {
+                if (foundEmployees) {
+                    foundEmployees.map((employee) => {
+                        employee.set('lcount', undefined, { strict: false });
+                        employee.set('leavefrom', undefined, { strict: false });
+                        employee.set('leaveto', undefined, { strict: false });
+                        employee.set('leavestatus', undefined, { strict: false });
+                        employee.save();
+                    });
+                }
+            }
+        });
+        Employee.find({ lcount: { $ne: null }, leavestatus: { $ne: null }, leaveto: { $gt: today } }, function (err, foundEmployees) {
             if (err) {
                 console.log(err);
             } else {
@@ -273,7 +290,10 @@ app.post('/reject', function (req, res) {
                 res.redirect('/leave');
             } else {
                 if (foundEmployee) {
-                    foundEmployee.leavestatus = 'rejected';
+                    foundEmployee.set('lcount', undefined, { strict: false });
+                    foundEmployee.set('leavefrom', undefined, { strict: false });
+                    foundEmployee.set('leaveto', undefined, { strict: false });
+                    foundEmployee.set('leavestatus', undefined, { strict: false });
                     foundEmployee.save(function () {
                         res.redirect('/leave');
                     });
@@ -295,8 +315,6 @@ app.get('/account', function (req, res) {
     }
 });
 /*==========================================*/
-
-
 
 var port = process.env.PORT || 3000;
 app.listen(port, function () {

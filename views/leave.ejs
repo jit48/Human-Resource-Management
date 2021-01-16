@@ -2,18 +2,23 @@
     <head>
     </head>
     <body>
-        <h1>Leave Requests Remaining</h1>
+        <h1>List of Applied Leaves</h1>
         <% employeewithleave.forEach(function(employee){ %>
             <p><%=employee.name%></p>
             <p><%=employee.leavefrom%></p>
             <p><%=employee.leaveto%></p>
             <p><%=employee.lcount%></p>
-            <form action="/leave" method="POST">
-                <input style="display: none;" value='<%=employee.username%>' name='username'>
-                <input type="text" name="message" placeholder="Write message">
-                <button type="submit" formaction="/approve">Approve</button>
-                <button type="submit" formaction="/reject">Reject</button>
-            </form>
+            <p><%=employee.leavestatus%></p>
+            <% if(employee.leavestatus!='rejected') { %>
+                <% if(employee.leavestatus=='not alotted') { %>
+                    <form action="/leave" method="POST">
+                        <input style="display: none;" value='<%=employee.username%>' name='username'>
+                        <input type="text" name="message" placeholder="Write message">
+                        <button type="submit" formaction="/approve">Approve</button>
+                        <button type="submit" formaction="/reject">Reject</button>
+                    </form>
+                <% } %>
+            <% } %>
         <% }) %>
     </body>
 </html
