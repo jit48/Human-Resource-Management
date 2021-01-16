@@ -6,6 +6,7 @@ const mongoose = require('mongoose');
 const session = require('express-session');
 const passport = require('passport');
 const passportLocalMongoose = require('passport-local-mongoose');
+const nodemailer = require('nodemailer');
 
 const app = express();
 
@@ -40,6 +41,7 @@ const employeeSchema = new mongoose.Schema({
     leaveto: String,
     lcount: Number,
     leavestatus: String,
+    mail:String
 });
 
 employeeSchema.plugin(passportLocalMongoose);
@@ -119,7 +121,6 @@ app.get('/admin', function (req, res) {
 
 app.post('/admin', function (req, res) {
     var teamValue = req.body.teamSearch;
-    var desigValue = req.body.desigSearch;
     Employee.find({ team: teamValue }, function (err, foundEmployees) {
         if (err) {
             console.log(err);
@@ -175,9 +176,10 @@ app.post('/register', function (req, res) {
             username: req.body.username,
             name: req.body.name,
             designation: req.body.designation,
-            team: req.body.team,
+            team: req.body.teamSearch,
             salary: req.body.salary,
             pnumber: req.body.phnum,
+            mail: req.body.mailId
         },
         req.body.password,
         function (err, employee) {
@@ -256,10 +258,35 @@ app.post('/approve', function (req, res) {
                 if (foundEmployee) {
                     foundEmployee.leavestatus = 'approved';
                     foundEmployee.save(function () {
+                        var mailId = foundEmployee.mail;
+                        var transporter = nodemailer.createTransport({
+                        service: 'gmail',
+                        auth: {
+                          user: 'hackearth99@gmail.com',
+                          pass: 'Jitmanpritnil'
+                        }
+                      });
+                      
+                      var mailOptions = {
+                        from: 'hackearth99@gmail.com',
+                        to: mailId,
+                        subject: 'Leave request '+foundEmployee.leavestatus,
+                        text: 'Your leave request from '+foundEmployee.leavefrom+' to '+foundEmployee.leaveto+' has been '+foundEmployee.leavestatus
+                      };
+                      
+                      transporter.sendMail(mailOptions, function(error, info){
+                        if (error) {
+                          console.log(error);
+                        } else {
+                          console.log("Email sent");
+                        }
+                      });
                         res.redirect('/leave');
                     });
                 }
             }
+            
+            
         });
     }
 });
