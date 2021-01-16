@@ -12,6 +12,17 @@
                 document.write(new Date().toLocaleDateString());
             </script>
         </p>
+        <!-- leave is applied and approved -->
+        <% if(employee.leavestatus=='approved') { %>
+        <p>Your leave has already been <strong>approved</strong>.</p>
+        <p>Leave from <%=employee.leavefrom%> to <%=employee.leaveto%> of <%=employee.lcount%> days.</p>
+        <% } else { %>
+        <!-- leave is applied but not-alotted -->
+        <% if(employee.leavestatus=='not alotted') { %>
+        <p>You have aleready requested for leave. Any further NEW request will overwrite current request.</p>
+        <p>Current request of leave is from <%=employee.leavefrom%> to <%=employee.leaveto%> of <%=employee.lcount%> days.</p>
+        <% } %>
+        <!-- leave is not-applied/rejected/not-alotted -->
         <form action="/attendance" method="POST">
             <label for="from">Date of start of leave</label>
             <input type="date" name="from" id="from" />
@@ -24,23 +35,33 @@
             <br />
             <br />
             <label for="from">Number of days for leave</label>
-            <% if(leavecount) { %>
-            <p><%=leavecount%></p>
-            <% } %>
+            <p id="count">0</p>
             <br />
             <br />
             <br />
             <button type="submit" name="submit" id="submit_btn">Apply</button>
         </form>
+        <% } %>
         <script>
-            var count = '<%-leavecount%>';
-            if (count != 0) {
-                document.getElementById('submit_btn').disabled = true;
-            } else {
+            var datefrom = document.getElementById('from');
+            var dateto = document.getElementById('to');
+            var from;
+            var to;
+            var count;
+            document.getElementById('submit_btn').disabled = true;
+            datefrom.min = new Date().toISOString().slice(0, 10);
+            dateto.disabled = true;
+            datefrom.addEventListener('change', () => {
+                from = new Date(datefrom.value);
+                dateto.disabled = false;
+                dateto.min = datefrom.value;
+            });
+            dateto.addEventListener('change', () => {
+                to = new Date(dateto.value);
+                count = Math.ceil(Math.abs(to.getTime() - from.getTime()) / (1000 * 60 * 60 * 24)) + 1;
+                document.getElementById('count').innerText = count;
                 document.getElementById('submit_btn').disabled = false;
-            }
-            document.getElementById('from').min = new Date().toISOString().slice(0, 10);
-            document.getElementById('to').min = new Date().toISOString().slice(0, 10);
+            });
         </script>
     </body>
 </html>
