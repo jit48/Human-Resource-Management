@@ -39,6 +39,8 @@
             } else {
                 document.getElementById('submit_btn').disabled = false;
             }
+            document.getElementById('from').min = new Date().toISOString().slice(0, 10);
+            document.getElementById('to').min = new Date().toISOString().slice(0, 10);
         </script>
     </body>
 </html>
