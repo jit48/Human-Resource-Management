@@ -9,8 +9,14 @@
             <input  name="username" placeholder="Username">
             <input  name="password" placeholder="Employee ID">
             <input  name="name" placeholder="Name">
-            <input  name="designation" placeholder="Designation">
-            <!--<input  name="team" placeholder="Team">-->
+            <!--<input  name="designation" placeholder="Designation">-->
+            <select id="searchbar" name="desigSearch">
+                <option value="Software Developer">Software Developer</option>
+                <option value="Network Engineer">Network Engineer</option>
+                <option value="Security Analytics">Security Analytics</option>
+                <option value="Data Scientist">Data Scientist</option>
+                <option value="Data Engineer">Data Engineer</option>
+            </select>
             <input  name="salary" placeholder="Salary">
             <input  name="phnum" placeholder="Phone Number">
             <input name="mailId" placeholder="Email" type="email">
@@ -19,6 +25,10 @@
                 <option value="Network">Network</option>
                 <option value="Security">Security</option>
                 <option value="Analytics">Analytics</option>
+            </select>
+            <select id="role" name="role">
+                <option value="Admin">Admin</option>
+                <option value="Employee">Employee</option>
             </select>
             <button type="submit" name="submit">Submit</button>
         </form>
