@@ -200,8 +200,7 @@ app.post('/register', function (req, res) {
 app.get('/attendance', function (req, res) {
     if (req.isAuthenticated()) {
         var employee = req.user;
-
-        res.render('attendance', { leavecount: employee.leavecount });
+        res.render('attendance', { employee: employee });
     } else {
         res.redirect('/');
     }
@@ -211,7 +210,6 @@ app.post('/attendance', function (req, res) {
     var from = new Date(req.body.from);
     var to = new Date(req.body.to);
     var count = Math.ceil(Math.abs(to.getTime() - from.getTime()) / (1000 * 60 * 60 * 24)) + 1;
-
     Employee.findById(req.user.id, function (err, foundEmployee) {
         if (err) {
             console.log(err);
@@ -222,7 +220,7 @@ app.post('/attendance', function (req, res) {
                 foundEmployee.lcount = count;
                 foundEmployee.leavestatus = 'not alotted';
                 foundEmployee.save(function () {
-                    res.render('attendance', { leavecount: count });
+                    res.redirect('/attendance');
                 });
             }
         }
