@@ -2,13 +2,26 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="css/emplogin.css">
         <title>HR-Attendance</title>
     </head>
     <body>
-        <form action="/adminlogin" method="POST">
-            <input  name="username" placeholder="Username">
-            <input  name="password" placeholder="Admin ID">
-            <button type="submit" name="submit">Submit</button>
-        </form>
+        <div class="inner">
+            <div class="photo">
+                <img src="image/login.svg">
+            </div>
+            <div class="user-form">
+                <h1>Login as Admin</h1>
+                <form action="/adminlogin" method="POST">
+                    <input  name="username" placeholder="Username">
+                    <input  name="password" placeholder="Admin ID">
+                    <div class="action-btn">
+                        <button class="btn" type="submit" name="submit">Submit</button>
+                    </div>   
+                </form>
+                
+            </div>
+        </div>
+        
     </body>
 </html>

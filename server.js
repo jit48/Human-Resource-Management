@@ -12,6 +12,7 @@ const app = express();
 
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.static("public"));
 
 app.use(
     session({
@@ -41,7 +42,8 @@ const employeeSchema = new mongoose.Schema({
     leaveto: String,
     lcount: Number,
     leavestatus: String,
-    mail:String
+    mail:String,
+    role: String
 });
 
 employeeSchema.plugin(passportLocalMongoose);
@@ -75,7 +77,11 @@ app.post('/empllogin', function (req, res) {
             console.log(err);
         } else {
             passport.authenticate('local')(req, res, function () {
-                res.redirect('/index');
+                if(req.user.role == "Employee"){
+                    res.redirect('/index');
+                } else{
+                    res.redirect('/empllogin');
+                }
             });
         }
     });
@@ -101,7 +107,12 @@ app.post('/adminlogin', function (req, res) {
             console.log(err);
         } else {
             passport.authenticate('local')(req, res, function () {
-                res.redirect('/admin');
+                if(req.user.role == "Admin"){
+                    res.redirect('/admin');
+                }
+                else{
+                    res.redirect("/adminlogin");
+                }
             });
         }
     });
@@ -175,11 +186,12 @@ app.post('/register', function (req, res) {
         {
             username: req.body.username,
             name: req.body.name,
-            designation: req.body.designation,
+            designation: req.body.desigSearch,
             team: req.body.teamSearch,
             salary: req.body.salary,
             pnumber: req.body.phnum,
-            mail: req.body.mailId
+            mail: req.body.mailId,
+            role: req.body.role
         },
         req.body.password,
         function (err, employee) {
@@ -280,7 +292,7 @@ app.post('/approve', function (req, res) {
                         service: 'gmail',
                         auth: {
                           user: 'hackearth99@gmail.com',
-                          pass: 'Jitmanpritnil'
+                          pass: process.env.EPASSWORD
                         }
                       });
                       
@@ -322,8 +334,32 @@ app.post('/reject', function (req, res) {
                     foundEmployee.set('leaveto', undefined, { strict: false });
                     foundEmployee.set('leavestatus', undefined, { strict: false });
                     foundEmployee.save(function () {
+                        var mailId = foundEmployee.mail;
+                        var transporter = nodemailer.createTransport({
+                        service: 'gmail',
+                        auth: {
+                          user: 'hackearth99@gmail.com',
+                          pass: process.env.EPASSWORD
+                        }
+                      });
+                      
+                      var mailOptions = {
+                        from: 'hackearth99@gmail.com',
+                        to: mailId,
+                        subject: 'Leave request '+foundEmployee.leavestatus,
+                        text: 'Your leave request from '+foundEmployee.leavefrom+' to '+foundEmployee.leaveto+' has been '+foundEmployee.leavestatus
+                      };
+                      
+                      transporter.sendMail(mailOptions, function(error, info){
+                        if (error) {
+                          console.log(error);
+                        } else {
+                          console.log("Email sent");
+                        }
+                      });
                         res.redirect('/leave');
                     });
+
                 }
             }
         });
