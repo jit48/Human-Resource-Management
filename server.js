@@ -55,6 +55,14 @@ passport.use(Employee.createStrategy());
 passport.serializeUser(Employee.serializeUser());
 passport.deserializeUser(Employee.deserializeUser());
 
+const faqSchema = new mongoose.Schema({
+    question: String,
+    answer: String
+   
+});
+
+const Faq = new mongoose.model('Faq', faqSchema);
+
 app.get('/', function (req, res) {
     res.render('login');
 });
@@ -378,6 +386,44 @@ app.get('/account', function (req, res) {
     }
 });
 /*==========================================*/
+
+
+app.post('/askfaq', function(req, res){
+    const newFaq = new Faq({
+        question: req.body.question
+    });
+    newFaq.save();
+    res.redirect("/faq");
+});
+
+app.get('/faq', function (req, res) {
+    Faq.find({question: {$ne: null}}, function(err, foundFaq){
+        if(err){
+            console.log(err);
+        }else{
+            if(foundFaq){
+                res.render("faq", {passedFaq: foundFaq});
+            }
+           
+        }
+    });
+});
+
+app.post("/faq", function(req, res){
+    var ansId = req.body.ansId;
+    var ans = req.body.answer;
+    Faq.findById(ansId, function(err, foundque){
+        if(err){
+            console.log(err);
+        }else{
+            if(foundque){
+                foundque.answer = ans
+                foundque.save();
+            }
+            res.redirect("/faq");
+        }
+    });
+});
 
 var port = process.env.PORT || 3000;
 app.listen(port, function () {
