@@ -1,20 +1,45 @@
 <%- include("partials/adminhead") -%>
-        <h1>List of Applied Leaves</h1>
-        <% employeewithleave.forEach(function(employee){ %>
-            <p><%=employee.name%></p>
-            <p><%=employee.leavefrom%></p>
-            <p><%=employee.leaveto%></p>
-            <p><%=employee.lcount%></p>
-            <p><%=employee.leavestatus%></p>
-            <% if(employee.leavestatus!='rejected') { %>
-                <% if(employee.leavestatus=='not alotted') { %>
-                    <form action="/leave" method="POST">
-                        <input style="display: none;" value='<%=employee.username%>' name='username'>
-                        <input type="text" name="message" placeholder="Write message">
-                        <button type="submit" formaction="/approve">Approve</button>
-                        <button type="submit" formaction="/reject">Reject</button>
-                    </form>
-                <% } %>
-            <% } %>
-        <% }) %>
+<div class="container">
+    <h1>List of Applied Leaves</h1>
+    <% employeewithleave.forEach(function(employee){ %>
+    <div class="<%= employee.leavestatus === 'approved' ?'card border-success m-2' : 'card border-secondary m-2' %>">
+        <div class="card-header">
+            <h5>
+                <%=employee.name%>
+                <span class="<%= employee.leavestatus === 'approved' ? 'badge bg-success' : 'badge bg-secondary' %>"
+                    ><%=employee.leavestatus%></span
+                >
+            </h5>
+        </div>
+        <div class="card-body">
+            <h5>Time Period</h5>
+            <span class="d-flex flex-sm-row flex-column">
+                <span class="d-flex">
+                    <strong>From: &nbsp;</strong>
+                    <p><%=employee.leavefrom%></p>
+                    &nbsp; &nbsp;
+                </span>
+                <span class="d-flex">
+                    <strong>To: &nbsp;</strong>
+                    <p><%=employee.leaveto%></p>
+                </span>
+            </span>
+            <span class="d-flex">
+                <h5>Total No. of Days : &nbsp;</h5>
+                <h5><%=employee.lcount%></h5>
+            </span>
+        </div>
+
+        <% if(employee.leavestatus!='rejected') { %> <% if(employee.leavestatus=='not alotted') { %>
+        <div class="card-footer">
+            <form action="/leave" method="POST">
+                <input style="display: none" value="<%=employee.username%>" name="username" />
+                <button class="btn btn-success" type="submit" formaction="/approve">Approve</button> &nbsp;
+                <button class="btn btn-danger" type="submit" formaction="/reject">Reject</button>
+            </form>
+        </div>
+        <% } %> <% } %>
+    </div>
+    <% }) %>
+</div>
 <%- include("partials/adminfoot") -%>
