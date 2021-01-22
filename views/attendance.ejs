@@ -6,9 +6,29 @@
         .alert {
             width: 50%;
         }
-        @media only screen and (max-width: 760px) {
+        .btn.btn-primary {
+            background-color: #5a43ff;
+            border-color: #5a43ff;
+        }
+        .btn.btn-primary:focus {
+            box-shadow: 0 0 0 0.25rem rgba(89, 67, 255, 0.5);
+        }
+        img {
+            position: absolute;
+            bottom: 0;
+            right: 10%;
+            z-index: -100;
+            width: 40vw;
+        }
+        @media only screen and (max-width: 1000px) {
             form,
             .alert {
+                width: 100%;
+            }
+            img {
+                margin: 0 auto;
+                right: unset;
+                left: 0;
                 width: 100%;
             }
         }
@@ -18,10 +38,12 @@
 <div class="container">
     <h1>Apply for Leave</h1>
     <h3>
-        Today is
-        <script>
-            document.write(new Date().toLocaleDateString());
-        </script>
+        <span class="badge bg-warning my-3">
+            Today:
+            <script>
+                document.write(new Date().toDateString());
+            </script>
+        </span>
     </h3>
     <!-- leave is approved -->
     <% if(employee.leavestatus=='approved') { %>
@@ -68,6 +90,7 @@
         <% } %>
     </form>
     <% } %>
+    <img src="image/undraw_quitting_time_dm8t.svg" alt="ill" />
 </div>
 <script>
     var datefrom = document.getElementById('from');
