@@ -1,60 +1,93 @@
 <%- include("partials/header") -%>
-        <h1>Apply for Leave</h1>
-        <h3>Today is</h3>
-        <p>
-            <script>
-                document.write(new Date().toLocaleDateString());
-            </script>
-        </p>
-        <!-- leave is applied and approved -->
-        <% if(employee.leavestatus=='approved') { %>
-        <p>Your leave has already been <strong>approved</strong>.</p>
-        <p>Leave from <%=employee.leavefrom%> to <%=employee.leaveto%> of <%=employee.lcount%> days.</p>
-        <% } else { %>
-        <!-- leave is applied but not-alotted -->
-        <% if(employee.leavestatus=='not alotted') { %>
-        <p>You have aleready requested for leave. Any further NEW request will overwrite current request.</p>
-        <p>Current request of leave is from <%=employee.leavefrom%> to <%=employee.leaveto%> of <%=employee.lcount%> days.</p>
-        <% } %>
-        <!-- leave is not-applied/rejected/not-alotted -->
-        <form action="/attendance" method="POST">
-            <label for="from">Date of start of leave</label>
-            <input type="date" name="from" id="from" />
-            <br />
-            <br />
-            <br />
-            <label for="from">Date of end of leave</label>
-            <input type="date" name="to" id="to" />
-            <br />
-            <br />
-            <br />
-            <label for="from">Number of days for leave</label>
-            <p id="count">0</p>
-            <br />
-            <br />
-            <br />
-            <button type="submit" name="submit" id="submit_btn">Apply</button>
-        </form>
-        <% } %>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+        form,
+        .alert {
+            width: 50%;
+        }
+        @media only screen and (max-width: 760px) {
+            form,
+            .alert {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<div class="container">
+    <h1>Apply for Leave</h1>
+    <h3>
+        Today is
         <script>
-            var datefrom = document.getElementById('from');
-            var dateto = document.getElementById('to');
-            var from;
-            var to;
-            var count;
-            document.getElementById('submit_btn').disabled = true;
-            datefrom.min = new Date().toISOString().slice(0, 10);
-            dateto.disabled = true;
-            datefrom.addEventListener('change', () => {
-                from = new Date(datefrom.value);
-                dateto.disabled = false;
-                dateto.min = datefrom.value;
-            });
-            dateto.addEventListener('change', () => {
-                to = new Date(dateto.value);
-                count = Math.ceil(Math.abs(to.getTime() - from.getTime()) / (1000 * 60 * 60 * 24)) + 1;
-                document.getElementById('count').innerText = count;
-                document.getElementById('submit_btn').disabled = false;
-            });
+            document.write(new Date().toLocaleDateString());
         </script>
+    </h3>
+    <!-- leave is approved -->
+    <% if(employee.leavestatus=='approved') { %>
+    <div class="alert alert-success" role="alert">
+        <h4 class="alert-heading">Approved !</h4>
+        <hr />
+        <p>Your leave has already been <strong>approved</strong>.</p>
+        <p>
+            Your leave is starting from <strong><%=employee.leavefrom%></strong> and ending at <strong><%=employee.leaveto%></strong> is of
+            <strong> <%=employee.lcount%> </strong> days.
+        </p>
+    </div>
+    <% } else { %>
+    <!-- leave is applied but not-alloted -->
+    <% if(employee.leavestatus=='not alotted') { %>
+    <div class="alert alert-secondary" role="alert">
+        <h4 class="alert-heading">Current Status</h4>
+        <hr />
+        <p>You have already requested for leave. Any further <strong>NEW REQUEST</strong> will overwrite current request.</p>
+        <p>
+            Current request of leave is starting from <strong><%=employee.leavefrom%></strong> and ending at
+            <strong><%=employee.leaveto%></strong> is of <strong> <%=employee.lcount%> </strong> days.
+        </p>
+    </div>
+    <% } %>
+    <!-- leave is not-applied/rejected/not-alloted -->
+    <form action="/attendance" method="POST">
+        <div class="input-group mt-4">
+            <span class="input-group-text">Starting From</span>
+            <input type="date" class="form-control" name="from" id="from" />
+        </div>
+        <br />
+        <div class="input-group mt-2">
+            <span class="input-group-text">Ending at</span>
+            <input type="date" class="form-control" name="to" id="to" />
+        </div>
+        <br />
+        <h4>Calculated no. of days of leave : <span class="badge bg-secondary" id="count">0</span></h4>
+        <br />
+        <% if(employee.leavestatus=='not alotted') { %>
+        <button type="submit" class="btn btn-primary" name="submit" id="submit_btn">Apply New</button>
+        <% } else { %>
+        <button type="submit" class="btn btn-primary" name="submit" id="submit_btn">Apply</button>
+        <% } %>
+    </form>
+    <% } %>
+</div>
+<script>
+    var datefrom = document.getElementById('from');
+    var dateto = document.getElementById('to');
+    var from;
+    var to;
+    var count;
+    document.getElementById('submit_btn').disabled = true;
+    datefrom.min = new Date().toISOString().slice(0, 10);
+    dateto.disabled = true;
+    datefrom.addEventListener('change', () => {
+        from = new Date(datefrom.value);
+        dateto.disabled = false;
+        dateto.min = datefrom.value;
+    });
+    dateto.addEventListener('change', () => {
+        to = new Date(dateto.value);
+        count = Math.ceil(Math.abs(to.getTime() - from.getTime()) / (1000 * 60 * 60 * 24)) + 1;
+        document.getElementById('count').innerText = count;
+        document.getElementById('submit_btn').disabled = false;
+    });
+</script>
 <%- include("partials/footer") -%>
