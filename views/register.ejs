@@ -50,21 +50,21 @@
 
         <form action="/register" method="POST">
             
-            <div class=" form-group">
+            <div class="username-form form-group">
             <label>Username :</label>            
-            <input  class="regisInput form-control"  type="text" name="username" >
+            <input required class="regisInput form-control" onblur="check(this.value)"  type="text" name="username" id='username' >
             </div>
             <div class="form-group">
             <label>Employee ID :</label>
-            <input class="regisInput form-control" type="text" name="password" >
+            <input required class="regisInput form-control" type="text" name="password" id="password" >
             </div>
             <div class="form-group">
             <label>Name :</label>
-            <input class="regisInput form-control" type="text" name="name" >
+            <input required class="regisInput form-control" onkeyup="this.value=this.value.replace(/[0-9]/, '')" type="text" name="name" id='name' >
             </div>
             <div class="form-group">
             <label>Designation :</label>
-            <select class="regisInput form-control" id="searchbar" name="desigSearch" >
+            <select required class="regisInput form-control" id="searchbar" name="desigSearch" >
                 <option value="Software Developer">Software Developer</option>
                 <option value="Network Engineer">Network Engineer</option>
                 <option value="Security Analytics">Security Analytics</option>
@@ -74,19 +74,19 @@
             </div>
             <div class="form-group">
             <label>Salary :</label>
-            <input class="regisInput form-control" type="text" name="salary" >
+            <input required class="regisInput form-control"  type="number" name="salary" id='salary' >
             </div>
             <div class="form-group">
             <label>Phone Number :</label>
-            <input class="regisInput form-control" type="text" name="phnum" >
+            <input required class="regisInput form-control" onkeyup="this.value=this.value.replace(/[a-zA-Z\s]/g, '')" type="text" name="phnum" id='phnum' >
             </div>
             <div class="form-group">
             <label>Email ID :</label>
-            <input class="regisInput form-control" type="text" name="mailId" type="email" >
+            <input required class="regisInput form-control" type="email" name="mailId" type="email" >
             </div>
             <div class="form-group">
             <label>Team :</label>
-            <select class="regisInput form-control" id="searchbar" name="teamSearch">
+            <select required class="regisInput form-control" id="searchbar" name="teamSearch">
                 <option value="Developer">Developer</option>
                 <option value="Network">Network</option>
                 <option value="Security">Security</option>
@@ -95,7 +95,7 @@
             </div>
            <div class="form-group">
                 <label>Role :</label>
-                 <select class="regisInput form-control" id="role" name="role">
+                 <select required class="regisInput form-control" id="role" name="role">
                 <option value="Admin">Admin</option>
                 <option value="Employee">Employee</option>
                 </select>
@@ -105,6 +105,30 @@
     </div>
 </div>
 </div>
+
+<script>
+    // check for same user name
+    const all = JSON.parse('<%- JSON.stringify(employees) %>')
+    const unInp = document.getElementById('username')
+    const unForm = document.querySelector('.username-form')
+    const feedback = document.createElement('DIV')
+    feedback.classList.add('invalid-feedback')
+    feedback.innerText = 'Username already exists'
+    
+    const check = (e) => {
+        if(unInp.classList.contains('is-invalid')) {
+            unInp.classList.remove('is-invalid')
+            unForm.removeChild(feedback)
+        } else {
+            all.forEach(emp => {
+                if(emp.username===e) {
+                    unInp.classList.add('is-invalid')
+                    unForm.appendChild(feedback)
+                } 
+            })
+        }
+    }
+</script>
     
 <%- include("partials/adminfoot") -%>
 
