@@ -132,7 +132,8 @@ app.post('/adminlogin', function (req, res) {
 /*----------------------------------------------*/
 app.get('/admin', function (req, res) {
     if (req.isAuthenticated()) {
-        res.render('admin');
+        var name = req.user.name;
+        res.render('admin', {passedname: name});
     } else {
         res.redirect('/');
     }

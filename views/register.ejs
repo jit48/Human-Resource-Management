@@ -1,29 +1,110 @@
-<%- include("partials/adminhead") -%>
+<!--<%- include("partials/adminhead") -%>
+<div class="container">
+    <h1 class="regisHead">Register an Employee</h1>
         <form action="/register" method="POST">
-            <input  name="username" placeholder="Username">
-            <input  name="password" placeholder="Employee ID">
-            <input  name="name" placeholder="Name">
-            <!--<input  name="designation" placeholder="Designation">-->
-            <select id="searchbar" name="desigSearch">
+            <p>Username</p>
+            <input  class="regisInput" type="text" name="username">
+            <p>Employee ID</p>
+            <input class="regisInput" type="text" name="password">
+            <p>Name</p>
+            <input class="regisInput" type="text" name="name" >
+            <p>Designation</p>
+            <select class="regisInput" id="searchbar" name="desigSearch">
                 <option value="Software Developer">Software Developer</option>
                 <option value="Network Engineer">Network Engineer</option>
                 <option value="Security Analytics">Security Analytics</option>
                 <option value="Data Scientist">Data Scientist</option>
                 <option value="Data Engineer">Data Engineer</option>
             </select>
-            <input  name="salary" placeholder="Salary">
-            <input  name="phnum" placeholder="Phone Number">
-            <input name="mailId" placeholder="Email" type="email">
-            <select id="searchbar" name="teamSearch">
+            <p>Salary</p>
+            <input class="regisInput" type="text" name="salary">
+            <p>Phone Number</p>
+            <input class="regisInput" type="text" name="phnum" >
+            <p>Email</p>
+            <input class="regisInput" type="text" name="mailId" type="email">
+            <p>Team</p>
+            <select class="regisInput" id="searchbar" name="teamSearch">
                 <option value="Developer">Developer</option>
                 <option value="Network">Network</option>
                 <option value="Security">Security</option>
                 <option value="Analytics">Analytics</option>
             </select>
-            <select id="role" name="role">
+            <p>Role</p>
+            <select class="regisInput" id="role" name="role">
                 <option value="Admin">Admin</option>
                 <option value="Employee">Employee</option>
             </select>
             <button type="submit" name="submit">Submit</button>
         </form>
+</div>
+    
+<%- include("partials/adminfoot") -%>-->
+
+<%- include("partials/adminhead") -%>
+<div class="main-box container">
+    <div class="register card ">
+    <div class="register card-header">
+        <h1 class="regisHead">Register an Employee</h1>
+    </div>
+        <div class="register card-body">
+
+        <form action="/register" method="POST">
+            
+            <div class=" form-group">
+            <label>Username :</label>            
+            <input  class="regisInput form-control"  type="text" name="username" >
+            </div>
+            <div class="form-group">
+            <label>Employee ID :</label>
+            <input class="regisInput form-control" type="text" name="password" >
+            </div>
+            <div class="form-group">
+            <label>Name :</label>
+            <input class="regisInput form-control" type="text" name="name" >
+            </div>
+            <div class="form-group">
+            <label>Designation :</label>
+            <select class="regisInput form-control" id="searchbar" name="desigSearch" >
+                <option value="Software Developer">Software Developer</option>
+                <option value="Network Engineer">Network Engineer</option>
+                <option value="Security Analytics">Security Analytics</option>
+                <option value="Data Scientist">Data Scientist</option>
+                <option value="Data Engineer">Data Engineer</option>
+            </select>
+            </div>
+            <div class="form-group">
+            <label>Salary :</label>
+            <input class="regisInput form-control" type="text" name="salary" >
+            </div>
+            <div class="form-group">
+            <label>Phone Number :</label>
+            <input class="regisInput form-control" type="text" name="phnum" >
+            </div>
+            <div class="form-group">
+            <label>Email ID :</label>
+            <input class="regisInput form-control" type="text" name="mailId" type="email" >
+            </div>
+            <div class="form-group">
+            <label>Team :</label>
+            <select class="regisInput form-control" id="searchbar" name="teamSearch">
+                <option value="Developer">Developer</option>
+                <option value="Network">Network</option>
+                <option value="Security">Security</option>
+                <option value="Analytics">Analytics</option>
+            </select>
+            </div>
+           <div class="form-group">
+                <label>Role :</label>
+                 <select class="regisInput form-control" id="role" name="role">
+                <option value="Admin">Admin</option>
+                <option value="Employee">Employee</option>
+                </select>
+            </div>
+            <button class="btn" type="submit" name="submit">Submit</button>
+        </form>
+    </div>
+</div>
+</div>
+    
 <%- include("partials/adminfoot") -%>
+

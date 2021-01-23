@@ -1,14 +1,30 @@
 <html>
     <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
         <link rel="stylesheet" href="css/faq.css">
     </head>
     <body>
         <h1>Frequently Asked Questions</h1>
-        <div class="container">
-            <div class="askfaq">
-                <a class="linkfaq" href=#askfaq>Ask a question</a>
+        <section class="header">
+            <div class="left">
+                <p>Welcome to Frequently Asked Question section. Have a question in your mind? Search the below questions to find if they provide you any solution, if not then feel free to ask one and wait till someone answers it. You can also answer any question if it's unanswered to help others !!</p>
+                <div class="askfaq">
+                    <a class="linkfaq" href=#submitfaq>Ask a question</a>
+                </div>
+                <div class="askfaq">
+                    <a class="linkfaq" href=#FAQ>See FAQs</a>
+                </div>
             </div>
+            <div class="right">
+                <img src="image/question.svg">
+            </div>
+        </section>
+
+
+        <div class="container" id="FAQ">
+            <h2>Questions</h2>
                 <% passedFaq.forEach(function(faq){ %>
                     
                         <form action="/faq" method="POST">
@@ -40,7 +56,7 @@
                     
                <% }) %>
 
-            <div class="qform">
+            <div class="qform" id="submitfaq">
                 <h2>Ask your Question</h2>
                 <form action="/askfaq" method="POST">
                     <input type="text"  name="question" placeholder="Ask a question">

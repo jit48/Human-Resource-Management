@@ -1,0 +1,238 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    list-style: none;
+}
+/*==================================================
+                    ACCOUNT
+===================================================*/
+.wrapper{
+    margin: 0 auto;
+    width: 75%;
+    height: 100%;
+    display: flex;
+    box-shadow: 0 1px 20px 0 rgba(69,90,100,.08);
+  }
+  
+  .wrapper .left{
+    width: 35%;
+    height: auto;
+    background: linear-gradient(to right,#01a9ac,#01dbdf);
+    padding: 30px 25px;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    text-align: center;
+    color: #fff;
+    position: relative;
+  }
+  
+  .wrapper .left img{
+    width: 80%;
+    padding: 30px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+  }
+  
+  .wrapper .left h4{
+    margin-bottom: 10px;
+  }
+  
+  .wrapper .left p{
+    font-size: 12px;
+  }
+  
+  .wrapper .right{
+    width: 65%;
+    height: auto;
+    background: #fff;
+    padding: 30px 25px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+  }
+  
+  .wrapper .right .info,
+  .wrapper .right .projects{
+    margin-bottom: 25px;
+  }
+  
+  .wrapper .right .info h3,
+  .wrapper .right .projects h3{
+      margin-bottom: 15px;
+      padding-bottom: 5px;
+      border-bottom: 1px solid #e0e0e0;
+      color: #353c4e;
+    text-transform: uppercase;
+    letter-spacing: 5px;
+  }
+  
+  .wrapper .right .info_data,
+  .wrapper .right .projects_data{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+   .Company{
+  
+      margin-bottom: 10px;
+  }
+  
+  .wrapper .right .info_data .data,
+  .wrapper .right .projects_data .data{
+    width: 45%;
+  }
+   .Employee{
+      margin-bottom: 20px;
+  }
+  .Nilesh {
+    margin-bottom: 20px;
+  }
+  .wrapper .right .info_data .data h4,
+  .wrapper .right .projects_data .data h4{
+      color: #353c4e;
+      margin-bottom: 5px;
+  }
+  
+  .wrapper .right .info_data .data p,
+  .wrapper .right .projects_data .data p{
+    font-size: 1rem;
+    margin-bottom: 10px;
+    color: #919aa3;
+  }
+  
+   @media only screen and (max-width:750px){
+      .wrapper{
+          width: 100%;
+          height: 100%;
+          flex-direction: column;
+      }
+      .wrapper .left{
+          width: 100%;
+          height: 100%;
+      }
+      .wrapper .left img{
+          width: 200px;
+      }
+      .wrapper .right{
+          width: 100%;
+          height: 100%; 
+      }
+  
+      
+  }
+
+  /*==================================================
+                    NAVBAR
+===================================================*/
+.navbar{
+  font-family: roboto;
+  background-color: #8533AC;
+}
+
+.navbar-brand{
+  margin: 0% 5%;
+  font-size: 25px;
+  font-weight: 600;
+}
+.navbar-nav{
+  width: 100%;
+}
+.nav-link{
+  font-size: 20px; 
+  
+}
+.nav-item{
+  margin:0% 3%;
+}
+.navbar .navbar-brand{
+  color: white;
+}
+
+.navbar .navbar-nav .nav-item a{
+  color: white;
+}
+/*==================================================
+                    EMPLOYEE ROUTE
+===================================================*/
+.inner{
+  display: flex;
+  width: 100%;
+
+}
+.adminpg-img{
+  width: 40%;
+  height: 100%;
+  margin-right: 80px;
+  margin-top: 20px;
+}
+
+.admin-info{
+  width: 60%;
+  height: 100%;
+  margin-left: 100px;
+  margin-top: 80px;
+}
+.adminpg-img img{
+  height: 450px;
+  width: 450px;
+}
+.heading{
+  justify-content:left;
+  margin:10% 0 8% 10%;
+}
+.heading h1{
+  font-size: 40px;
+  color: rgb(10, 52, 65);
+  font-weight: 700;
+  margin-bottom: 30px;
+}
+.heading h2 h3{
+  font-size: 30px;
+  color: rgb(10, 52, 65);
+  font-weight: 500;
+}
+
+.options {
+  margin-left: 8%;
+  margin-top: 2%;
+  margin-bottom: 5%;
+  transition-duration: background-color 0.4s;
+}
+
+.options a{
+   color:white;
+   font-size: 20px;
+   margin: 2%;
+   padding:2% 3%;
+   background-color: #8533AC;   
+   text-decoration: none;
+   border-radius: 5px;
+}
+
+.options :hover{
+background-color: #ffffff; 
+color: #8533AC;
+border: solid 1px #8533AC;
+}
+@media only screen and (max-width: 760px) {
+    
+  .inner{
+  flex-direction: column-reverse;
+  height:fit-content;
+  width: 100%;
+}
+.admin-info{
+  margin-left: unset;
+  margin-top: unset;
+}
+.adminpg-img img{
+  width: 70vw;
+  height: unset;
+}
+.adminpg-img{
+  margin: 20px 30px 0 30px;
+}
+  .heading{
+  margin-top: 20%;
+}
+}

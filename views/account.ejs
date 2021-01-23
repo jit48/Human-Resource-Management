@@ -1,8 +1,49 @@
 <%- include("partials/header") -%>
-        <h1>HI THIS IS ACCOUNT PAGE</h1>
-        <h4>Name - <%=empDetail.name%></h4>
-        <h4>Team - <%=empDetail.team%></h4>
-        <h4>Designation - <%=empDetail.designation%></h4>
-        <h4>Phone Number - <%=empDetail.pnumber%></h4>
-        <h4>Current Salary - <%=empDetail.salary%></h4>
-<%- include("partials/footer") -%> 
+<div class="wrapper">
+        <div class="left">
+            <img src="image/account.svg" alt="user" >
+        </div>
+        <div class="right">
+            <div class="info">
+                <h1 class="Company">ABC Company</h1>
+                <h2 class="Employee">Employee</h2>
+                <h3>Information</h3>
+                <div class="data">
+                 <h4>Name</h4>
+                    <p class="Nilesh"><%=empDetail.name%></p>
+                 </div>
+                 <div class="data">
+                        <h4>username</h4>
+                           <p class="Nilesh"><%=empDetail.username%></p>
+                        </div>
+                <div class="info_data">
+                     <div class="data">
+                        <h4>Email</h4>
+                        <p><%=empDetail.mail%></p>
+                     </div>
+                     <div class="data">
+                        <h4></h4>
+                     </div>
+                
+                     <div class="data">
+                        <h4>Team</h4>
+                        <p><%=empDetail.team%></p>
+                     </div>
+                     <div class="data">
+                        <h4>Designation</h4>
+                        <p><%=empDetail.designation%></p>
+                     </div>                
+                     <div class="data">
+                        <h4>Salary</h4>
+                        <p><%=empDetail.salary%></p>
+                     </div>
+                     <br>
+                     <div class="data">
+                       <h4>Phone</h4>
+                        <p><%=empDetail.pnumber%></p>
+                  </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<%- include("partials/footer") -%>

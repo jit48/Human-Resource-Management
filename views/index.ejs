@@ -1,11 +1,23 @@
 <%- include("partials/header") -%>
   <header>
-    <div class="left">
-        <h1>ABC COMPANY</h1>
-        <div class="einfo">
-            <h2>Welcome <%= empDetail.name %></h2>
-            <h3><%= empDetail.designation %></h3>
+      <div class="inner">
+          <div class="admin-info">
+            <div class="heading">
+                <h1>ABC COMPANY</h1>
+                <h2>Welcome <%= empDetail.name %></h2>
+                <h3><%= empDetail.designation %></h3>
+            </div>
+            <div class="options">
+                <a href="/attendance">Apply for leave</a>
+                <a href="/account">Account</a>
+            </div>
+          </div>
+          <div class="adminpg-img">
+            <img src="../image/admin.svg">
         </div>
+      </div>
+    <div class="left">
+       
     </div>
 </header>
 
