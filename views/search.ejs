@@ -1,16 +1,31 @@
-<html>
-    <head>
 
-    </head>
-    <body>
-        <% searchedEmployees.forEach(function(employee){ %>
-            <p>Name - <%=employee.name%></p>
-            <p>Team - <%=employee.team%></p>
-            <p>Designation - <%=employee.designation%></p>
-            <p>Phone Number - <%=employee.pnumber%></p>
-            <p>Salary - <%=employee.salary%></p>
-            <p>Employee Id - <%=employee.employeeId%></p>
+<%- include("partials/adminhead") -%>
+        <div class="container"> <h1>Search Result</h1>
+            <img src="../image/search.svg" class="card-img-top" alt="search">
+        </div>
+       
+        <div class="container-fluid">
+            
+             <% searchedEmployees.forEach(function(employee){ %> 
+                
+                
+            <div class="search card text-light  border-dark ">
+             
+                  
+            <div class="search card-header">Search for an employee:</div>  
+            <div class="search card-body">    
+            <ul class="list-group list-group-flush">
+               
+           <li class="name"> <p >Name - <%=employee.name%></p></li>
+           <li class="team"> <p >Team - <%=employee.team%></p></li>
+           <li class="dsgn"> <p >Designation - <%=employee.designation%></p></li>
+           <li class="phno"> <p >Phone Number - <%=employee.pnumber%></p></li>
+           <li class="saly"> <p >Salary - <%=employee.salary%></p></li>
+           <li class="empid"><p>Employee Id - <%=employee.employeeId%></p></li>
+            </ul>
+        </div>  
+        </div>
 
-        <% }) %>
-    </body>
-</html>
+         <% }) %>
+        </div>
+<%- include("partials/adminfoot") -%>

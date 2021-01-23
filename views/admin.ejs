@@ -1,4 +1,45 @@
 <%- include("partials/adminhead") -%>
+
+<div class="inner">
+    
+    <div class="admin-info">
+    <div class="heading">
+        <h1>Welcome <%=passedname%></h1>
+    </div>
+
+    <div class="options">
+        <a href="/register">Register Employee</a>
+        <a href="/leave">Leave Requests</a>
+    </div>
+
+    <div class="search-bar">
+
+        <h2>Search Employees</h2>
+        <form action="/admin" method="POST">
+            <label for="searchbar">Search for Employees</label>
+            <select id="searchbar" name="teamSearch">
+                <option value="Developer">Developer</option>
+                <option value="Network">Network</option>
+                <option value="Security">Security</option>
+                <option value="Analytics">Analytics</option>
+            </select>
+            <select id="searchbar" name="desigSearch">
+                <option value="Software Developer">Software Developer</option>
+                <option value="Network Engineer">Network Engineer</option>
+                <option value="Security analysts">Security analysts</option>
+                <option value="Data Engineer">Data Engineer</option>
+            </select>
+
+            <button class="button" type="submit">Search</button>
+        </form>
+    </div>
+    </div>
+    <div class="adminpg-img">
+        <img src="../image/admin.svg">
+    </div>
+<%- include("partials/adminfoot") -%>
+</div>
+<!--<%- include("partials/adminhead") -%>
         <h1>This is admin Page</h1>
         <a href="/register">Register Employee</a>
         <a href="/leave">Leave Requests</a>
@@ -21,4 +62,4 @@
 
             <button type="submit">Search</button>
         </form>
-<%- include("partials/adminfoot") -%>
+<%- include("partials/adminfoot") -%>-->

@@ -1,0 +1,282 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/*==================================================
+                ADMIN
+===================================================*/
+.inner{
+        display: flex;
+        width: 100%;
+    
+    }
+    .adminpg-img{
+        width: 40%;
+        height: 100%;
+    }
+    
+    .admin-info{
+        width: 60%;
+        height: 100%;
+    }
+    
+    /*-------------------navbar---------*/
+    .navbar{
+        font-family: roboto;
+        background-color: #8533AC;
+    }
+    
+    .navbar-brand{
+        margin: 0% 5%;
+        font-size: 25px;
+        font-weight: 600;
+    }
+    .navbar-nav{
+        width: 100%;
+    }
+    .nav-link{
+        font-size: 20px; 
+        
+    }
+    .nav-item{
+        margin:0% 3%;
+    }
+    .navbar .navbar-brand{
+        color: white;
+    }
+    
+    .navbar .navbar-nav .nav-item a{
+        color: white;
+    }
+   
+    /*-------------image--------------*/
+    .adminpg-img img{
+        height: 450px;
+        width: 450px;
+    }
+    
+    /*------------- Heading -----------*/
+    
+    .heading{
+        justify-content:left;
+        margin:10% 0 2% 10%;
+    }
+    .heading h1{
+        font-size: 40px;
+        color: rgb(10, 52, 65);
+        font-weight: 700;
+    }
+    
+    /*----------options------------*/
+    
+    .options {
+           margin-left: 8%;
+           margin-top: 2%;
+           margin-bottom: 5%;
+           transition-duration: background-color 0.4s;
+    }
+    
+    .options a{
+            color:white;
+            font-size: 20px;
+            margin: 2%;
+            padding:1%;
+            background-color: #8533AC;   
+            text-decoration: none;
+            
+        }
+    
+    .options :hover{
+        background-color: #ffffff; 
+        color: #8533AC;
+        border: solid 1px #8533AC;
+    }
+    
+    /*------------search-bar----------*/
+    
+    .search-bar {
+      margin:2% 9.5%;
+      font-size: 20px;
+      height:20%;   
+    }
+    
+    .search-bar h2{
+       font-size: 40px;
+       margin: 1% 0%;
+    }
+    
+    .button{
+        transition-duration: 0.4s;
+        font-size: 25px;
+        background-color:#8533AC;
+        display: inline-block;
+        text-align: center;
+        color:white;
+        font-weight: 450;
+        height:30%;
+        padding: 0% 1%;
+      }
+      
+      .button:hover {
+        background-color: #ffffff; 
+        color: #8533AC;
+        border: solid 1px #8533AC;
+      }
+    
+    /*----------------media-query-----------------*/
+    
+      @media only screen and (max-width: 760px) {
+    
+        .inner{
+        flex-direction: column-reverse;
+        height:fit-content;
+        width: 100%;
+    }
+    .adminpg-img img{
+        width: 70vw;
+        height: unset;
+    }
+        .heading{
+        margin-top: 20%;
+    }
+    .options{
+        margin-bottom :10%;
+    }
+    
+    .options a{
+        display: inline-block;
+    }
+    .search-bar h2{
+        margin-bottom: 5%;
+    }
+    .search-bar {
+        display: inline-block;
+    }
+    
+    .inner{
+        background-image: none;
+    }
+    }
+/*==================================================
+                    SEARCH
+===================================================*/
+
+
+.list-group  li p{
+    color: rgb(12, 12, 12);
+}
+ .list-group ul{
+    color: rgb(121, 25, 230);
+    text-align:left ;
+}
+.container h1{
+    width: 100%;
+    text-align: center;
+}
+
+.container-fluid{
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    width: 80%;
+    gap: 20px;
+
+}
+.search.card-body ul{
+    list-style: none;
+
+}
+
+.search.card{
+    margin-top: 10%;
+    width: 100%;
+    background-color: rgb(232, 212, 233);
+    
+
+}
+.search.card-header{
+    text-align: center;
+    background-color: rgb(136, 84, 160);
+}
+
+
+.container .card-img-top{
+    display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 40%;
+   
+}
+
+.list-group .list-group-flush ul{
+    list-style-type:none ;
+
+}
+@media only screen and (max-width:1100px){
+    .container-fluid{
+        grid-template-columns: 1fr 1fr;
+    }
+}
+@media only screen and (max-width:760px){
+    .container-fluid{
+        grid-template-columns: 1fr;
+    }
+}
+
+/*==================================================
+                    REGISTER
+===================================================*/
+.form-group{
+    margin-bottom: 1rem;
+}
+.register.card{
+    width: 70%;
+    margin:1rem auto;
+    background-color: rgb(255, 255, 255);
+    border-radius: 20px;
+}
+
+    
+
+.register.card-header{
+    text-align: center;
+    background-color: #8533ac;
+    
+}
+
+.register.card-header h1{
+    color: white;
+    font-weight: 600;
+}
+.form-group label{
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.register.card .btn{
+    transition-duration: 0.4s;
+    width:15%;
+    background-color:#8533ac ;
+    color: white;
+    font-size: 17px;
+    
+} 
+
+.register.card .btn :hover{
+    background-color: #3C9FA8; 
+    color: white;
+}
+
+
+
+@media only screen and (max-width: 760px) {
+    .register.card{
+        width:90%;
+    }
+    .register.card .btn{
+        width:100%;
+    
+    }
+}
