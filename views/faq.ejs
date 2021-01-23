@@ -6,7 +6,18 @@
         <link rel="stylesheet" href="css/faq.css">
     </head>
     <body>
+        <% if(passedrole=="Employee"){ %>
+            <div class="askfaq" style="position: absolute; top: 0;left: 0;">
+                <a class="linkfaq" href="/index">Home</a>
+            </div>
+        <% } else { %>
+            <div class="askfaq" style="position: absolute; top: 0;left: 0;">
+                <a class="linkfaq" href="/admin">Home</a>
+            </div>
+        <% } %>
+        <br />
         <h1>Frequently Asked Questions</h1>
+        
         <section class="header">
             <div class="left">
                 <p>Welcome to Frequently Asked Question section. Have a question in your mind? Search the below questions to find if they provide you any solution, if not then feel free to ask one and wait till someone answers it. You can also answer any question if it's unanswered to help others !!</p>
@@ -45,7 +56,7 @@
                             <% if(faq.answer == null){  %>
                                 <div class="qform">
                                     <h3>Q. <%=faq.question%></h3>
-                                    <input type="text" name="answer">
+                                    <input required  type="text" name="answer">
                                     <input style="display: none;" value='<%=faq._id%>' name='ansId'>
                                     <br>
                                     <button class="btn" type="submit">Answer</button>
@@ -59,7 +70,7 @@
             <div class="qform" id="submitfaq">
                 <h2>Ask your Question</h2>
                 <form action="/askfaq" method="POST">
-                    <input type="text"  name="question" placeholder="Ask a question">
+                    <input type="text" required  name="question" placeholder="Ask a question">
                     <br>
                     <button class="btn" type="submit">Submit</button>
                 </form>

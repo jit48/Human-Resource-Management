@@ -2,7 +2,9 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="css/emplogin.css">
+        <!-- <link rel="stylesheet" href="css/emplogin.css"> -->
+        <link href="https://fonts.googleapis.com/css2?family=Cabin:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="css/adminlogin.css">
         <title>HR-Attendance</title>
     </head>
     <body>
@@ -13,8 +15,8 @@
             <div class="user-form">
                 <h1>Login as Admin</h1>
                 <form action="/adminlogin" method="POST">
-                    <input  name="username" placeholder="Username">
-                    <input  name="password" placeholder="Admin ID">
+                    <input required  name="username" placeholder="Username">
+                    <input required  name="password" placeholder="Admin ID">
                     <div class="action-btn">
                         <button class="btn" type="submit" name="submit">Submit</button>
                     </div>   

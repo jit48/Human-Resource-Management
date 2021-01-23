@@ -43,7 +43,8 @@ const employeeSchema = new mongoose.Schema({
     lcount: Number,
     leavestatus: String,
     mail:String,
-    role: String
+    role: String,
+    leavereason: String
 });
 
 employeeSchema.plugin(passportLocalMongoose);
@@ -62,6 +63,14 @@ const faqSchema = new mongoose.Schema({
 });
 
 const Faq = new mongoose.model('Faq', faqSchema);
+
+const holidaySchema = new mongoose.Schema({
+    date: String,
+    holiday: String,
+
+});
+
+const Holiday = new mongoose.model('Holiday', holidaySchema);
 
 app.get('/', function (req, res) {
     res.render('login');
@@ -84,7 +93,7 @@ app.post('/empllogin', function (req, res) {
         if (err) {
             console.log(err);
         } else {
-            passport.authenticate('local')(req, res, function () {
+            passport.authenticate('local', {failureRedirect: '/empllogin'})(req, res, function () {
                 if(req.user.role == "Employee"){
                     res.redirect('/index');
                 } else{
@@ -114,7 +123,7 @@ app.post('/adminlogin', function (req, res) {
         if (err) {
             console.log(err);
         } else {
-            passport.authenticate('local')(req, res, function () {
+            passport.authenticate('local', {failureRedirect: '/adminlogin'})(req, res, function () {
                 if(req.user.role == "Admin"){
                     res.redirect('/admin');
                 }
@@ -184,7 +193,13 @@ app.get('/index', function (req, res) {
 
 app.get('/register', function (req, res) {
     if (req.isAuthenticated()) {
-        res.render('register');
+        Employee.find({}, (err, found) => {
+            if(err) {
+                console.log(error)
+            } else {
+                res.render('register', {employees: found});
+            }
+        })
     } else {
         res.redirect('/');
     }
@@ -241,6 +256,7 @@ app.post('/attendance', function (req, res) {
                 foundEmployee.leavefrom = req.body.from;
                 foundEmployee.leaveto = req.body.to;
                 foundEmployee.lcount = count;
+                foundEmployee.leavereason = req.body.reason;
                 foundEmployee.leavestatus = 'not alotted';
                 foundEmployee.save(function () {
                     res.redirect('/attendance');
@@ -268,6 +284,7 @@ app.get('/leave', function (req, res) {
                         employee.set('leavefrom', undefined, { strict: false });
                         employee.set('leaveto', undefined, { strict: false });
                         employee.set('leavestatus', undefined, { strict: false });
+                        employee.set('leavereason', undefined, { strict: false });
                         employee.save();
                     });
                 }
@@ -338,12 +355,7 @@ app.post('/reject', function (req, res) {
                 res.redirect('/leave');
             } else {
                 if (foundEmployee) {
-                    foundEmployee.set('lcount', undefined, { strict: false });
-                    foundEmployee.set('leavefrom', undefined, { strict: false });
-                    foundEmployee.set('leaveto', undefined, { strict: false });
-                    foundEmployee.set('leavestatus', undefined, { strict: false });
-                    foundEmployee.save(function () {
-                        var mailId = foundEmployee.mail;
+                    var mailId = foundEmployee.mail;
                         var transporter = nodemailer.createTransport({
                         service: 'gmail',
                         auth: {
@@ -355,8 +367,8 @@ app.post('/reject', function (req, res) {
                       var mailOptions = {
                         from: 'hackearth99@gmail.com',
                         to: mailId,
-                        subject: 'Leave request '+foundEmployee.leavestatus,
-                        text: 'Your leave request from '+foundEmployee.leavefrom+' to '+foundEmployee.leaveto+' has been '+foundEmployee.leavestatus
+                        subject: 'Leave request Rejected',
+                        text: 'Your leave request from '+foundEmployee.leavefrom+' to '+foundEmployee.leaveto+' has been rejected'
                       };
                       
                       transporter.sendMail(mailOptions, function(error, info){
@@ -366,6 +378,12 @@ app.post('/reject', function (req, res) {
                           console.log("Email sent");
                         }
                       });
+                    foundEmployee.set('lcount', undefined, { strict: false });
+                    foundEmployee.set('leavefrom', undefined, { strict: false });
+                    foundEmployee.set('leaveto', undefined, { strict: false });
+                    foundEmployee.set('leavestatus', undefined, { strict: false });
+                    foundEmployee.set('leavereason', undefined, { strict: false });
+                    foundEmployee.save(function () {
                         res.redirect('/leave');
                     });
 
@@ -388,7 +406,9 @@ app.get('/account', function (req, res) {
 });
 /*==========================================*/
 
-
+/*----------------------------------------------*/
+/*              FAQ ROUTE                   */
+/*----------------------------------------------*/
 app.post('/askfaq', function(req, res){
     const newFaq = new Faq({
         question: req.body.question
@@ -398,12 +418,13 @@ app.post('/askfaq', function(req, res){
 });
 
 app.get('/faq', function (req, res) {
+    var role = req.user.role;
     Faq.find({question: {$ne: null}}, function(err, foundFaq){
         if(err){
             console.log(err);
         }else{
             if(foundFaq){
-                res.render("faq", {passedFaq: foundFaq});
+                res.render("faq", {passedFaq: foundFaq, passedrole: role});
             }
            
         }
@@ -421,10 +442,11 @@ app.post("/faq", function(req, res){
                 foundque.answer = ans
                 foundque.save();
             }
-            res.redirect("/faq");
+            res.render("/faq");
         }
     });
 });
+/*==========================================*/
 
 var port = process.env.PORT || 3000;
 app.listen(port, function () {

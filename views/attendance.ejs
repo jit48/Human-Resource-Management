@@ -81,6 +81,11 @@
             <input type="date" class="form-control" name="to" id="to" />
         </div>
         <br />
+        <div class="input-group mt-2">
+            <span class="input-group-text">Leave reason</span>
+            <input type="text" class="form-control" name="reason" id="reason" placeholder="Maximum limit: 100 words"/>
+        </div>
+        <br />
         <h4>Calculated no. of days of leave : <span class="badge bg-secondary" id="count">0</span></h4>
         <br />
         <% if(employee.leavestatus=='not alotted') { %>

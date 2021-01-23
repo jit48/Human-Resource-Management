@@ -10,59 +10,66 @@
 .wrapper{
     margin: 0 auto;
     width: 75%;
-    height: 100%;
+    height: fit-content;
     display: flex;
     box-shadow: 0 1px 20px 0 rgba(69,90,100,.08);
   }
   
   .wrapper .left{
-    width: 35%;
+    width: 30%;
     height: auto;
-    background: linear-gradient(to right,#01a9ac,#01dbdf);
+    /*background: linear-gradient(to right,#01a9ac,#01dbdf);
     padding: 30px 25px;
     border-top-left-radius: 5px;
     border-bottom-left-radius: 5px;
     text-align: center;
     color: #fff;
-    position: relative;
+    position: relative;*/
+    background-color:  #902dbecc;
+    padding: 40px 0px;
+    text-align: center;
   }
   
   .wrapper .left img{
     width: 80%;
-    padding: 30px;
+    /*padding: 30px;
     border-radius: 5px;
-    margin-bottom: 10px;
+    margin-bottom: 10px;*/
   }
   
-  .wrapper .left h4{
+  /*.wrapper .left h4{
     margin-bottom: 10px;
   }
   
   .wrapper .left p{
     font-size: 12px;
-  }
+  }*/
   
   .wrapper .right{
+    font-family: 'Cabin';
+    
     width: 65%;
-    height: auto;
+    height:fit-content;
     background: #fff;
-    padding: 30px 25px;
+    padding: 15px 40px;
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
   }
   
-  .wrapper .right .info,
+  /* .wrapper .right .info,
   .wrapper .right .projects{
     margin-bottom: 25px;
   }
   
   .wrapper .right .info h3,
-  .wrapper .right .projects h3{
+  .wrapper .right .projects h3{ */
+    .wrapper .right h3
+    {
       margin-bottom: 15px;
       padding-bottom: 5px;
-      border-bottom: 1px solid #e0e0e0;
+      border-bottom: 1px solid #757575;
       color: #353c4e;
-    text-transform: uppercase;
+    /* text-transform: uppercase;
     letter-spacing: 5px;
   }
   
@@ -70,9 +77,11 @@
   .wrapper .right .projects_data{
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: space-between; */
+    text-transform: uppercase;
+    letter-spacing: 5px;
   }
-   .Company{
+   /* .Company{
   
       margin-bottom: 10px;
   }
@@ -98,7 +107,10 @@
     font-size: 1rem;
     margin-bottom: 10px;
     color: #919aa3;
-  }
+  } */
+  .right .data h4{
+    letter-spacing: 2px;
+  } 
   
    @media only screen and (max-width:750px){
       .wrapper{
@@ -125,7 +137,7 @@
                     NAVBAR
 ===================================================*/
 .navbar{
-  font-family: roboto;
+ 
   background-color: #8533AC;
 }
 
@@ -195,11 +207,12 @@
 .options {
   margin-left: 8%;
   margin-top: 2%;
-  margin-bottom: 5%;
+ 
   transition-duration: background-color 0.4s;
 }
 
 .options a{
+  display: inline-block;
    color:white;
    font-size: 20px;
    margin: 2%;

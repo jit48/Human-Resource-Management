@@ -2,6 +2,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'cabin';
 }
 
 /*==================================================
@@ -24,8 +25,9 @@
     
     /*-------------------navbar---------*/
     .navbar{
-        font-family: roboto;
+        
         background-color: #8533AC;
+        width: 100%;
     }
     
     .navbar-brand{
@@ -50,6 +52,9 @@
     .navbar .navbar-nav .nav-item a{
         color: white;
     }
+    .adminpg-img{
+        margin-top: 20px;
+    }
    
     /*-------------image--------------*/
     .adminpg-img img{
@@ -61,7 +66,7 @@
     
     .heading{
         justify-content:left;
-        margin:10% 0 2% 10%;
+        margin:15% 0 2% 20%;
     }
     .heading h1{
         font-size: 40px;
@@ -72,7 +77,7 @@
     /*----------options------------*/
     
     .options {
-           margin-left: 8%;
+           margin-left:18%;
            margin-top: 2%;
            margin-bottom: 5%;
            transition-duration: background-color 0.4s;
@@ -97,7 +102,7 @@
     /*------------search-bar----------*/
     
     .search-bar {
-      margin:2% 9.5%;
+      margin:2% 20%;
       font-size: 20px;
       height:20%;   
     }
@@ -173,6 +178,7 @@
 }
 .container h1{
     width: 100%;
+    font-size: 35px;
     text-align: center;
 }
 
@@ -206,7 +212,7 @@
     display: block;
   margin-left: auto;
   margin-right: auto;
-  width: 40%;
+  width: 28%;
    
 }
 

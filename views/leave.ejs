@@ -28,6 +28,10 @@
                 <h5>Total No. of Days : &nbsp;</h5>
                 <h5><%=employee.lcount%></h5>
             </span>
+            <span class="d-flex">
+                <h5>Leave reason &nbsp;</h5>
+                <p><%=employee.leavereason%></p>
+            </span>
         </div>
         <% if(employee.leavestatus!='rejected') { %> <% if(employee.leavestatus=='not alotted') { %>
         <div class="card-footer">
