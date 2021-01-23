@@ -12,7 +12,7 @@ const app = express();
 
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static("public"));
+app.use(express.static('public'));
 
 app.use(
     session({
@@ -42,8 +42,8 @@ const employeeSchema = new mongoose.Schema({
     leaveto: String,
     lcount: Number,
     leavestatus: String,
-    mail:String,
-    role: String
+    mail: String,
+    role: String,
 });
 
 employeeSchema.plugin(passportLocalMongoose);
@@ -57,8 +57,7 @@ passport.deserializeUser(Employee.deserializeUser());
 
 const faqSchema = new mongoose.Schema({
     question: String,
-    answer: String
-   
+    answer: String,
 });
 
 const Faq = new mongoose.model('Faq', faqSchema);
@@ -84,10 +83,10 @@ app.post('/empllogin', function (req, res) {
         if (err) {
             console.log(err);
         } else {
-            passport.authenticate('local')(req, res, function () {
-                if(req.user.role == "Employee"){
+            passport.authenticate('local', {failureRedirect: '/empllogin'})(req, res, function () {
+                if (req.user.role == 'Employee') {
                     res.redirect('/index');
-                } else{
+                } else {
                     res.redirect('/empllogin');
                 }
             });
@@ -113,13 +112,13 @@ app.post('/adminlogin', function (req, res) {
     req.login(employee, function (err) {
         if (err) {
             console.log(err);
+            res.redirect('/adminlogin')
         } else {
-            passport.authenticate('local')(req, res, function () {
-                if(req.user.role == "Admin"){
+            passport.authenticate('local', {failureRedirect: '/adminlogin'})(req, res, function () {
+                if (req.user.role == 'Admin') {
                     res.redirect('/admin');
-                }
-                else{
-                    res.redirect("/adminlogin");
+                } else {
+                    res.redirect('/adminlogin');
                 }
             });
         }
@@ -133,7 +132,7 @@ app.post('/adminlogin', function (req, res) {
 app.get('/admin', function (req, res) {
     if (req.isAuthenticated()) {
         var name = req.user.name;
-        res.render('admin', {passedname: name});
+        res.render('admin', { passedname: name });
     } else {
         res.redirect('/');
     }
@@ -141,7 +140,8 @@ app.get('/admin', function (req, res) {
 
 app.post('/admin', function (req, res) {
     var teamValue = req.body.teamSearch;
-    Employee.find({ team: teamValue }, function (err, foundEmployees) {
+    var designationValue = req.body.desigSearch;
+    Employee.find({ team: teamValue, designation: designationValue }, function (err, foundEmployees) {
         if (err) {
             console.log(err);
         } else {
@@ -184,7 +184,14 @@ app.get('/index', function (req, res) {
 
 app.get('/register', function (req, res) {
     if (req.isAuthenticated()) {
-        res.render('register');
+        Employee.find({}, (err, found) => {
+            if(err) {
+                console.log(error)
+            } else {
+                res.render('register', {employees: found});
+            }
+        })
+        
     } else {
         res.redirect('/');
     }
@@ -200,7 +207,7 @@ app.post('/register', function (req, res) {
             salary: req.body.salary,
             pnumber: req.body.phnum,
             mail: req.body.mailId,
-            role: req.body.role
+            role: req.body.role,
         },
         req.body.password,
         function (err, employee) {
@@ -298,33 +305,37 @@ app.post('/approve', function (req, res) {
                     foundEmployee.save(function () {
                         var mailId = foundEmployee.mail;
                         var transporter = nodemailer.createTransport({
-                        service: 'gmail',
-                        auth: {
-                          user: 'hackearth99@gmail.com',
-                          pass: process.env.EPASSWORD
-                        }
-                      });
-                      
-                      var mailOptions = {
-                        from: 'hackearth99@gmail.com',
-                        to: mailId,
-                        subject: 'Leave request '+foundEmployee.leavestatus,
-                        text: 'Your leave request from '+foundEmployee.leavefrom+' to '+foundEmployee.leaveto+' has been '+foundEmployee.leavestatus
-                      };
-                      
-                      transporter.sendMail(mailOptions, function(error, info){
-                        if (error) {
-                          console.log(error);
-                        } else {
-                          console.log("Email sent");
-                        }
-                      });
+                            service: 'gmail',
+                            auth: {
+                                user: 'hackearth99@gmail.com',
+                                pass: process.env.EPASSWORD,
+                            },
+                        });
+
+                        var mailOptions = {
+                            from: 'hackearth99@gmail.com',
+                            to: mailId,
+                            subject: 'Leave request ' + foundEmployee.leavestatus,
+                            text:
+                                'Your leave request from ' +
+                                foundEmployee.leavefrom +
+                                ' to ' +
+                                foundEmployee.leaveto +
+                                ' has been ' +
+                                foundEmployee.leavestatus,
+                        };
+
+                        transporter.sendMail(mailOptions, function (error, info) {
+                            if (error) {
+                                console.log(error);
+                            } else {
+                                console.log('Email sent');
+                            }
+                        });
                         res.redirect('/leave');
                     });
                 }
             }
-            
-            
         });
     }
 });
@@ -345,30 +356,35 @@ app.post('/reject', function (req, res) {
                     foundEmployee.save(function () {
                         var mailId = foundEmployee.mail;
                         var transporter = nodemailer.createTransport({
-                        service: 'gmail',
-                        auth: {
-                          user: 'hackearth99@gmail.com',
-                          pass: process.env.EPASSWORD
-                        }
-                      });
-                      
-                      var mailOptions = {
-                        from: 'hackearth99@gmail.com',
-                        to: mailId,
-                        subject: 'Leave request '+foundEmployee.leavestatus,
-                        text: 'Your leave request from '+foundEmployee.leavefrom+' to '+foundEmployee.leaveto+' has been '+foundEmployee.leavestatus
-                      };
-                      
-                      transporter.sendMail(mailOptions, function(error, info){
-                        if (error) {
-                          console.log(error);
-                        } else {
-                          console.log("Email sent");
-                        }
-                      });
+                            service: 'gmail',
+                            auth: {
+                                user: 'hackearth99@gmail.com',
+                                pass: process.env.EPASSWORD,
+                            },
+                        });
+
+                        var mailOptions = {
+                            from: 'hackearth99@gmail.com',
+                            to: mailId,
+                            subject: 'Leave request ' + foundEmployee.leavestatus,
+                            text:
+                                'Your leave request from ' +
+                                foundEmployee.leavefrom +
+                                ' to ' +
+                                foundEmployee.leaveto +
+                                ' has been ' +
+                                foundEmployee.leavestatus,
+                        };
+
+                        transporter.sendMail(mailOptions, function (error, info) {
+                            if (error) {
+                                console.log(error);
+                            } else {
+                                console.log('Email sent');
+                            }
+                        });
                         res.redirect('/leave');
                     });
-
                 }
             }
         });
@@ -388,40 +404,38 @@ app.get('/account', function (req, res) {
 });
 /*==========================================*/
 
-
-app.post('/askfaq', function(req, res){
+app.post('/askfaq', function (req, res) {
     const newFaq = new Faq({
-        question: req.body.question
+        question: req.body.question,
     });
     newFaq.save();
-    res.redirect("/faq");
+    res.redirect('/faq');
 });
 
 app.get('/faq', function (req, res) {
-    Faq.find({question: {$ne: null}}, function(err, foundFaq){
-        if(err){
+    Faq.find({ question: { $ne: null } }, function (err, foundFaq) {
+        if (err) {
             console.log(err);
-        }else{
-            if(foundFaq){
-                res.render("faq", {passedFaq: foundFaq});
+        } else {
+            if (foundFaq) {
+                res.render('faq', { passedFaq: foundFaq });
             }
-           
         }
     });
 });
 
-app.post("/faq", function(req, res){
+app.post('/faq', function (req, res) {
     var ansId = req.body.ansId;
     var ans = req.body.answer;
-    Faq.findById(ansId, function(err, foundque){
-        if(err){
+    Faq.findById(ansId, function (err, foundque) {
+        if (err) {
             console.log(err);
-        }else{
-            if(foundque){
-                foundque.answer = ans
+        } else {
+            if (foundque) {
+                foundque.answer = ans;
                 foundque.save();
             }
-            res.redirect("/faq");
+            res.redirect('/faq');
         }
     });
 });
