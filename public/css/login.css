@@ -22,7 +22,8 @@
 .photo{
     width: 50%;
     height: 100%;
-    padding: 0 50px;
+    padding: 60px 60px;
+    
 }
 .photo img{
     width: 100%;
@@ -42,13 +43,16 @@
     text-align: center;
     padding-top: 6rem;
 }
-a{
+.user-form a{
     text-decoration: none;
     display: block;
     color: white;
     text-align: center;
     margin-bottom: 1rem;
     font-size: 1.3rem;
+}
+.user-form a :hover{
+    color:#fff;
 }
 
 @media(max-width: 665px){
